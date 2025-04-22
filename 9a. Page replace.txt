@@ -1,0 +1,60 @@
+﻿// FIFO Page Replacement Policy
+#include <stdio.h>
+
+int main() {
+    int i, j, n, a[50], frame[10], no, k, avail, count = 0;
+
+    // Input the reference string length
+    printf("\nEnter the length of the Reference string: ");
+    scanf("%d", &n);
+
+    // Input the reference string
+    printf("\nEnter the reference string: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    // Input the number of frames
+    printf("\nEnter the number of Frames: ");
+    scanf("%d", &no);
+
+    // Initialize frames to -1 (empty)
+    for (i = 0; i < no; i++)
+        frame[i] = -1;
+
+    j = 0; // Pointer for FIFO replacement
+
+    printf("\nReference String\tPage Frames\n");
+
+    for (i = 0; i < n; i++) {
+        printf("%d\t\t", a[i]);
+        avail = 0;
+
+        // Check if the page is already in frame
+        for (k = 0; k < no; k++) {
+            if (frame[k] == a[i]) {
+                avail = 1; // Page Hit
+                break;
+            }
+        }
+
+        // If page not available, replace it
+        if (avail == 0) {
+            frame[j] = a[i];
+            j = (j + 1) % no; // Move pointer in FIFO manner
+            count++;
+
+            // Print current frames
+            for (k = 0; k < no; k++) {
+                if (frame[k] != -1)
+                    printf("%d\t", frame[k]);
+                else
+                    printf("-\t"); // Empty slot
+            }
+        }
+        printf("\n");
+    }
+
+    printf("\nTotal Page Faults: %d\n", count);
+
+    return 0;
+}

@@ -1,0 +1,8 @@
+1. ls – List Directory Contents
+2. cd – Change Directory
+3. cp – Copy Files and Directories
+4. touch – Create Empty Files              # touch newfile.txt
+5. mkdir – Create Directories
+6. pwd – Print Working Directory
+7. man – Display the Manual for Commands
+8. echo – Display a Line of Text or Variable Value

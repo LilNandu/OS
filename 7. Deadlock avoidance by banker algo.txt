@@ -1,0 +1,93 @@
+#include <stdio.h>
+
+#define PROCESSES 5  // Number of processes
+#define RESOURCES 3  // Number of resources
+
+// Function to calculate the need matrix
+void calculateNeed(int need[PROCESSES][RESOURCES], int max[PROCESSES][RESOURCES], int alloc[PROCESSES][RESOURCES]) {
+    for (int i = 0; i < PROCESSES; i++) {
+        for (int j = 0; j < RESOURCES; j++) {
+            need[i][j] = max[i][j] - alloc[i][j]; // Need = Max - Allocation
+        }
+    }
+}
+
+// Function to check if the system is in a safe state
+void isSafe(int alloc[PROCESSES][RESOURCES], int max[PROCESSES][RESOURCES], int avail[RESOURCES]) {
+    int need[PROCESSES][RESOURCES];
+    calculateNeed(need, max, alloc);
+
+    int safeSequence[PROCESSES];
+    int finished[PROCESSES] = {0};  // Initialize all processes as unfinished
+    int work[RESOURCES];
+
+    // Copy available resources to work array
+    for (int i = 0; i < RESOURCES; i++) {
+        work[i] = avail[i];
+    }
+
+    int count = 0;
+    while (count < PROCESSES) {
+        int found = 0;
+        for (int i = 0; i < PROCESSES; i++) {
+            if (!finished[i]) {
+                int canAllocate = 1;
+                for (int j = 0; j < RESOURCES; j++) {
+                    if (need[i][j] > work[j]) {
+                        canAllocate = 0;
+                        break;
+                    }
+                }
+
+                if (canAllocate) {
+                    for (int j = 0; j < RESOURCES; j++) {
+                        work[j] += alloc[i][j]; // Release allocated resources
+                    }
+                    safeSequence[count++] = i;
+                    finished[i] = 1;
+                    found = 1;
+                }
+            }
+        }
+
+        if (!found) {
+            printf("\nThe system is NOT in a safe state!\n");
+            return;
+        }
+    }
+
+    // Print the safe sequence
+    printf("\nThe system is in a SAFE state.\nSafe Sequence: ");
+    for (int i = 0; i < PROCESSES - 1; i++) {
+        printf("P%d -> ", safeSequence[i]);
+    }
+    printf("P%d\n", safeSequence[PROCESSES - 1]);
+}
+
+int main() {
+    // Allocation Matrix
+    int alloc[PROCESSES][RESOURCES] = {
+        {0, 1, 0},
+        {2, 0, 0},
+        {3, 0, 2},
+        {2, 1, 1},
+        {0, 0, 2}
+    };
+
+    // Maximum Requirement Matrix
+    int max[PROCESSES][RESOURCES] = {
+        {7, 5, 3},
+        {3, 2, 2},
+        {9, 0, 2},
+        {4, 2, 2},
+        {5, 3, 3}
+    };
+
+    // Available Resources
+    int avail[RESOURCES] = {3, 3, 2};
+
+    // Check for safe sequence
+    isSafe(alloc, max, avail);
+
+    return 0;
+}

@@ -1,0 +1,20 @@
+﻿[ 1. Open Text Editor 
+2. Type shell program 
+3. Save the file with extension sh (eg:- shellpdemo.sh) 
+4. Open Terminal (ctrl + alt +T) 
+5. To run the program type bash shellpdemo.sh 
+ This is not code dont execute this]
+
+
+#Shell Program 2 
+echo 'Top memory consuming processes' ps aux --sort -rss|head 
+echo 'current login user and log name' 
+W 
+echo' Current shell' 
+ps -p $$ 
+echo 'Display home directory' 
+1s 
+echo 'current working directory' 
+pwd 
+echo 'operating system type' 
+uname -r
