@@ -21,7 +21,7 @@
 
  additional 
 //Display OS Version, release number, kernel version 
- lsb release a && uname -r 
+ lsb_release -a && uname -r 
  
 //Display Top 10 process in descending order by cpu 
  ps -eo pid,ppid, mem, cpu 
