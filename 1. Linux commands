@@ -6,3 +6,34 @@
 6. pwd – Print Working Directory
 7. man – Display the Manual for Commands
 8. echo – Display a Line of Text or Variable Value
+
+
+
+
+
+
+
+
+
+
+
+
+
+ additional 
+//Display OS Version, release number, kernel version 
+ lsb release a && uname -r 
+ 
+//Display Top 10 process in descending order by cpu 
+ ps -eo pid,ppid, mem, cpu 
+--sort-cpu | head -n 11 
+ 
+ 
+//Display highest memory usage 
+ ps -eo pid,ppid, mem, &cpu 
+--sort-mem | head -n 11 
+ 
+//display current login user & log name 
+ echo "User: $USER" && echo "Logname: $LOGNAME" 
+ 
+//display current shell home directory 05 type, path 
+ echo "Shell: $SHELL" && echo "Home: $HOME uname -o && echo "Path: $PATH" && pwd 
